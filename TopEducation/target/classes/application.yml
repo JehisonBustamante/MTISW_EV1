@@ -1,0 +1,14 @@
+server:
+  port: 6080
+
+spring:
+  application:
+    name: topEducation
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: create
+  datasource:
+    url: jdbc:mysql://localhost:3306/topeducation
+    username: root
+    password: 1234
