@@ -13,6 +13,7 @@ import lombok.NoArgsConstructor;
 public class EstudianteEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id_estudiante;
     private String RUN;
     private String apellidos;
     private String nombres;

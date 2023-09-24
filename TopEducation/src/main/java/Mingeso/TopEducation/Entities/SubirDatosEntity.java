@@ -13,7 +13,8 @@ import lombok.NoArgsConstructor;
 public class SubirDatosEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer RUN;
+    private Integer id_dato;
+    private String RUN;
     private String apellidos;
     private String nombres;
     private String fecha_nacimiento;

@@ -18,9 +18,9 @@ public class EstudianteService {
     }
 
 
-    public void guardarEstudiante(String run, String apellidos, String nombres, String fechaNacimiento, String tipoColegio, String nombreColegio, Integer anioEgreso) {
+    public void guardarEstudiante(String RUN, String apellidos, String nombres, String fechaNacimiento, String tipoColegio, String nombreColegio, Integer anioEgreso) {
         EstudianteEntity estudiante = new EstudianteEntity();
-        estudiante.setRUN(run);
+        estudiante.setRUN(RUN);
         estudiante.setApellidos(apellidos);
         estudiante.setNombres(nombres);
         estudiante.setFecha_nacimiento(fechaNacimiento);

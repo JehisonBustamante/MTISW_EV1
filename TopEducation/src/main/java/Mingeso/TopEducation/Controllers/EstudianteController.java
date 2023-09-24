@@ -35,12 +35,12 @@ public class EstudianteController {
 
     @PostMapping("/nuevo-estudiante")
     public String nuevoEstudiante(@RequestParam("RUN") String RUN,
-                                  @RequestParam("apellidos") String apellidos,
-                                  @RequestParam("nombres") String nombres,
-                                  @RequestParam("fecha_nacimiento") String fecha_nacimiento,
-                                  @RequestParam("tipo_colegio") String tipo_colegio,
-                                  @RequestParam("nombre_colegio") String nombre_colegio,
-                                  @RequestParam("anio_egreso") Integer anio_egreso)
+                                  @RequestParam("Apellidos") String apellidos,
+                                  @RequestParam("Nombres") String nombres,
+                                  @RequestParam("Fecha de Nacimiento") String fecha_nacimiento,
+                                  @RequestParam("Tipo de Colegio") String tipo_colegio,
+                                  @RequestParam("Nombre de Colegio") String nombre_colegio,
+                                  @RequestParam("Año de Egreso") Integer anio_egreso)
     {
         estudianteService.guardarEstudiante(RUN, apellidos, nombres, fecha_nacimiento, tipo_colegio, nombre_colegio, anio_egreso);
         return "redirect:/nuevo-estudiante";
