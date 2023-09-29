@@ -43,6 +43,6 @@ public class EstudianteController {
                                   @RequestParam("Año de Egreso") Integer anio_egreso)
     {
         estudianteService.guardarEstudiante(RUN, apellidos, nombres, fecha_nacimiento, tipo_colegio, nombre_colegio, anio_egreso);
-        return "redirect:/nuevo-estudiante";
+        return "cuotas";
     }
 }

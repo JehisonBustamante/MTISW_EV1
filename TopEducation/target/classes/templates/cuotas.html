@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang = "es" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Forma de Pago</title>
+    <link rel="shortcut icon" type="image/x-icon" href="/images/TE.ico">
+</head>
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        background-color: #f2f2f2;
+        position: relative;
+    }
+
+    .imagen-esquina {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100px; /* Ajusta el tamaño de la imagen según tus preferencias */
+    }
+    /* Definición del estilo de la imagen de fondo */
+    body {
+        background-image: url('/images/TE_bg.jpeg'); /* Ruta relativa a la carpeta 'static' */
+        background-size: cover;
+        background-repeat: no-repeat;
+    }
+    .contenido {
+        background-color: rgba(255, 255, 255, 0.7);
+        padding: 20px;
+        border-radius: 10px;
+        margin: 20px;
+        position: relative;
+    }
+</style>
+<body>
+<img src="/images/TE.png" alt="Logo TopEducation" class="imagen-esquina">
+<br>
+<div class = "contenido">
+    <h1> Ingrese el RUT y la cantidad de cuotas a solicitar</h1>
+
+    <form action="/agregar-cuotas" method="POST">
+        <label for="RUN">RUN:</label>
+        <input type="text" id="RUN" name="RUN" required><br>
+
+        <label for="Cuotas">Cuotas:</label>
+        <input type="text" id="Cuotas" name="Cuotas" required><br>
+
+
+        <input type="submit" value="Matricular">
+    </form>
+
+</div>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+</body>
+</html>

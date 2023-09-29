@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang = "es" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Top Education</title>
+    <link rel="shortcut icon" type="image/x-icon" href="/images/TE.ico">
+</head>
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        background-color: #f2f2f2;
+        position: relative;
+    }
+
+    .imagen-esquina {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100px; /* Ajusta el tamaño de la imagen según tus preferencias */
+    }
+    /* Definición del estilo de la imagen de fondo */
+    body {
+        background-image: url('/images/TE_bg.jpeg'); /* Ruta relativa a la carpeta 'static' */
+        background-size: cover;
+        background-repeat: no-repeat;
+    }
+    .contenido {
+        background-color: rgba(255, 255, 255, 0.7);
+        padding: 20px;
+        border-radius: 10px;
+        margin: 20px;
+        position: relative;
+    }
+</style>
+<body>
+    <img src="/images/TE.png" alt="Logo TopEducation" class="imagen-esquina">
+    <br>
+    <div class = "contenido">
+    <h1> TopEducation </h1>
+    <h2> El preuniversitario para estudiantes con hambre de éxito </h2>
+    <form th:action="@{/lista-estudiantes}" method="get">
+        <button type="submit"> Revisar Lista de Estudiantes</button>
+    </form>
+    <br>
+        <form th:action="@{/nuevo-estudiante}" method="get">
+            <button type="submit"> Matricular estudiante nuevo</button>
+        </form>
+
+        <form th:action="@{/registro-cuotas}" method="get">
+            <button type="submit"> Ver registro de cuotas</button>
+        </form>
+    </div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+
+</body>
+</html>

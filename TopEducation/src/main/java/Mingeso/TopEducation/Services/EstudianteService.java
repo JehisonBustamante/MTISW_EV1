@@ -30,6 +30,14 @@ public class EstudianteService {
         estudianteRepository.save(estudiante);
     }
 
+    public int VerificarEstudiante(String RUN) {
+        if (estudianteRepository.findByRUN(RUN) == null) {
+            return 0;
+        } else {
+            return 1;
+        }
+    }
+
     public void eliminarEstudiante(EstudianteEntity estudiante)
     {
         estudianteRepository.delete(estudiante);

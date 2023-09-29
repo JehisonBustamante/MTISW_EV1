@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang = "es" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Cuotas</title>
+    <link rel="shortcut icon" type="image/x-icon" href="/images/TE.ico">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #f2f2f2;
+            position: relative;
+        }
+
+        .imagen-esquina {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100px; /* Ajusta el tamaño de la imagen según tus preferencias */
+        }
+        /* Definición del estilo de la imagen de fondo */
+        body {
+            background-image: url('/images/TE_bg.jpeg'); /* Ruta relativa a la carpeta 'static' */
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+        .contenido {
+            background-color: rgba(255, 255, 255, 0.7);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        tr:hover {
+            background-color: #ddd;
+        }
+    </style>
+</head>
+<body>
+<br>
+<img src="/images/TE.png" alt="Logo TopEducation" class="imagen-esquina">
+<div class="contenido">
+    <h1>TopEducation</h1>
+    <h2> <b>Lista de cuotas</b> </h2>
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>RUN</th>
+            <th>Monto</th>
+            <th>Estado de Pago</th>
+            <th>Fecha de Inicio</th>
+            <th>Fecha de Pago</th>
+            <th>Meses de Atraso</th>
+        </tr>
+        </thead>
+        <tbody>
+        /*
+        private Integer id_cuota;
+
+        private String RUN;
+        private Integer montoInicial;
+        private String estadoPago;
+        private LocalDate fechaInicio;
+        private LocalDate fechaPago;
+        private Integer atrasoMeses;
+        */
+        <tr th:each="cuota : ${Cuotas}">
+            <td th:text="${cuota.id_cuota}"></td>
+            <td th:text="${cuota.RUN}"></td>
+            <td th:text="${cuota.montoInicial}"></td>
+            <td th:text="${cuota.estadoPago}"></td>
+            <td th:text="${cuota.fechaInicio}"></td>
+            <td th:text="${cuota.fechaPago}"></td>
+            <td th:text="${cuota.atrasoMeses}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+</body>
+</html>
