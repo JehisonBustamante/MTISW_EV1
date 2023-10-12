@@ -73,18 +73,9 @@
         </tr>
         </thead>
         <tbody>
-        /*
-        private Integer id_cuota;
 
-        private String RUN;
-        private Integer montoInicial;
-        private String estadoPago;
-        private LocalDate fechaInicio;
-        private LocalDate fechaPago;
-        private Integer atrasoMeses;
-        */
         <tr th:each="cuota : ${Cuotas}">
-            <td th:text="${cuota.id_cuota}"></td>
+            <td th:text="${cuota.idCuota}"></td>
             <td th:text="${cuota.RUN}"></td>
             <td th:text="${cuota.montoInicial}"></td>
             <td th:text="${cuota.estadoPago}"></td>

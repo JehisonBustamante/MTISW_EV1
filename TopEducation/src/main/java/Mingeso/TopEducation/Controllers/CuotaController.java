@@ -1,18 +1,12 @@
 package Mingeso.TopEducation.Controllers;
 
 import Mingeso.TopEducation.Entities.CuotaEntity;
-import Mingeso.TopEducation.Entities.EstudianteEntity;
 import Mingeso.TopEducation.Services.CuotaService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-
-import java.time.LocalDate;
+import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 
 @Controller
@@ -21,26 +15,89 @@ public class CuotaController {
     @Autowired
     CuotaService cuotaService;
 
-    @GetMapping("/registro-cuotas")
-    public String verCuotas(Model model)
+    @GetMapping("/ver-cuotas")
+    public String verCuotas()
     {
-        ArrayList<CuotaEntity> cuotas = cuotaService.obtenerCuotas();
+        return "verCuotas";
+    }
+
+    @PostMapping("/ver-cuotas")
+    public String verCuotas(@RequestParam("RUN") String RUN, HttpSession session)
+    {
+        session.setAttribute("RunCuotas", RUN);
+        return "redirect:/registro-cuotas";
+    }
+
+    @GetMapping("/registro-cuotas")
+    public String listaCuotas(HttpSession session, Model model)
+    {
+        String RUN = (String) session.getAttribute("RunCuotas");
+        ArrayList<CuotaEntity> cuotas = cuotaService.obtenerCuotas(RUN);
+        if(cuotas.isEmpty())
+        {
+            model.addAttribute("mensaje", "No hay cuotas asociadas al estudiante");
+            return "main";
+        }
         model.addAttribute("Cuotas", cuotas);
         return "lista-cuotas";
     }
     @GetMapping("/agregar-cuotas")
-    public String agregarCuota()
+    public String agregarCuota(HttpSession session,
+                               Model model)
     {
-        return "agregar-cuotas";
+        String tipoColegio = (String) session.getAttribute("TipoColegio");
+        Integer max = cuotaService.cuotasMaximas(tipoColegio);
+        model.addAttribute("max", max);
+        return "cuotas";
     }
 
     @PostMapping("/agregar-cuotas")
-    public String nuevaCuota(@RequestParam("Rut del Estudiante")String RUN,
-                             @RequestParam("Cantidad de Cuotas")Integer Cantidad,
+    public String nuevaCuota(@RequestParam("CantidadCuotas") Integer Cantidad,
+                             HttpSession session,
                              Model model)
     {
+        String RUN = (String) session.getAttribute("RUN");
+        String tipoColegio = (String) session.getAttribute("TipoColegio");
+        String anioEgreso = (String) session.getAttribute("AnioEgreso");
+        Integer anio = Integer.parseInt(anioEgreso);
+        cuotaService.generarCuota(RUN, tipoColegio, anio, Cantidad);
+        model.addAttribute("mensaje", "Cuotas generadas con exito");
+        return "main";
+    }
 
-        model.addAttribute("mensaje", "Cuota generada con éxito");
+    @GetMapping("/ingreso-pago")
+    public String pago()
+    {
+        return "ipago";
+    }
+    @PostMapping("/ingreso-pago")
+    public String pago(@RequestParam("RUN") String RUN,
+                       HttpSession session,
+                       Model model)
+    {
+        ArrayList<CuotaEntity> busqueda = cuotaService.buscarCuotas(RUN);
+        model.addAttribute("busqueda", busqueda);
+        session.setAttribute("RunPago", RUN);
+        return "redirect:/pagar";
+    }
+    @GetMapping("/pagar")
+    public String pagar()
+    {
+        return "pagar";
+    }
+    @PostMapping("/pagar")
+    public String pagar(HttpSession session,
+                        Model model)
+    {
+        String RUN = (String) session.getAttribute("RunPago");
+        ArrayList<CuotaEntity> busqueda = cuotaService.buscarCuotas(RUN);
+        cuotaService.pagarPendientes(busqueda);
+        if(busqueda.isEmpty())
+        {
+            model.addAttribute("mensaje", "No hay cuotas por pagar");
+            return "main";
+        }
+        model.addAttribute("mensaje", "Pago realizado con éxito");
         return "main";
     }
 }

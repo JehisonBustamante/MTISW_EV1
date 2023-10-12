@@ -5,6 +5,7 @@ import Mingeso.TopEducation.Repositories.EstudianteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 @Service
@@ -18,15 +19,15 @@ public class EstudianteService {
     }
 
 
-    public void guardarEstudiante(String RUN, String apellidos, String nombres, String fechaNacimiento, String tipoColegio, String nombreColegio, Integer anioEgreso) {
+    public void guardarEstudiante(String RUN, String apellidos, String nombres, LocalDate fechaNacimiento, String tipoColegio, String nombreColegio, Integer anioEgreso) {
         EstudianteEntity estudiante = new EstudianteEntity();
         estudiante.setRUN(RUN);
         estudiante.setApellidos(apellidos);
         estudiante.setNombres(nombres);
-        estudiante.setFecha_nacimiento(fechaNacimiento);
-        estudiante.setTipo_colegio(tipoColegio);
-        estudiante.setNombre_colegio(nombreColegio);
-        estudiante.setAnio_egreso(anioEgreso);
+        estudiante.setFechaNacimiento(fechaNacimiento);
+        estudiante.setTipoColegio(tipoColegio);
+        estudiante.setNombreColegio(nombreColegio);
+        estudiante.setAnioEgreso(anioEgreso);
         estudianteRepository.save(estudiante);
     }
 

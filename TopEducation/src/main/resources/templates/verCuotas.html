@@ -59,32 +59,14 @@
 <img src="/images/TE.png" alt="Logo TopEducation" class="imagen-esquina">
 <div class="contenido">
     <h1>TopEducation</h1>
-    <h2> <b>Lista de cuotas</b> </h2>
-    <table>
-        <thead>
-        <tr>
-            <th>ID</th>
-            <th>RUN</th>
-            <th>Monto</th>
-            <th>Estado de Pago</th>
-            <th>Fecha de Inicio</th>
-            <th>Fecha de Pago</th>
-            <th>Meses de Atraso</th>
-        </tr>
-        </thead>
-        <tbody>
+    <h2> <b>Ingrese el RUN del Estudiante que se desea visualizar</b> </h2>
+    <form action="/ver-cuotas" method="POST">
+        <label for="RUN">Rut del Estudiante:</label>
+        <input type="text" id="RUN" name="RUN" required><br>
 
-        <tr th:each="cuota : ${Cuotas}">
-            <td th:text="${cuota.idCuota}"></td>
-            <td th:text="${cuota.RUN}"></td>
-            <td th:text="${cuota.montoInicial}"></td>
-            <td th:text="${cuota.estadoPago}"></td>
-            <td th:text="${cuota.fechaInicio}"></td>
-            <td th:text="${cuota.fechaPago}"></td>
-            <td th:text="${cuota.atrasoMeses}"></td>
-        </tr>
-        </tbody>
-    </table>
+        <input type="submit" value="Visualizar">
+    </form>
+
 </div>
 <br>
 <br>

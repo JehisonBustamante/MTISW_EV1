@@ -8,21 +8,16 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "cuota")
+@Table(name = "pruebas")
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class CuotaEntity {
+public class PruebaEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(unique = true, nullable = false)
-    private Integer idCuota;
-
+    private Integer idPrueba;
     private String RUN;
-    private Integer montoInicial;
-    private String estadoPago;
-    private LocalDate fechaInicio;
-    private LocalDate fechaPago;
-    private Integer atrasoMeses;
-    private Integer tipoError;
+    private Integer puntaje;
+    private LocalDate fechaPrueba;
+    private LocalDate fechaResultado;
 }

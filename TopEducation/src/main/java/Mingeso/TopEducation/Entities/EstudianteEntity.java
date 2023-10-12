@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
+
 @Entity
 @Table(name = "estudiante")
 @NoArgsConstructor
@@ -14,13 +16,13 @@ public class EstudianteEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(unique = true, nullable = false)
-    private Integer id_estudiante;
+    private Integer idEstudiante;
 
     private String RUN;
     private String apellidos;
     private String nombres;
-    private String fecha_nacimiento;
-    private String tipo_colegio;
-    private String nombre_colegio;
-    private Integer anio_egreso;
+    private LocalDate fechaNacimiento;
+    private String tipoColegio;
+    private String nombreColegio;
+    private Integer anioEgreso;
 }

@@ -2,7 +2,10 @@
 <html lang = "es" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Lista de Cuotas</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Lista de Estudiantes</title>
     <link rel="shortcut icon" type="image/x-icon" href="/images/TE.ico">
     <style>
         body {
@@ -59,32 +62,31 @@
 <img src="/images/TE.png" alt="Logo TopEducation" class="imagen-esquina">
 <div class="contenido">
     <h1>TopEducation</h1>
-    <h2> <b>Lista de cuotas</b> </h2>
+    <h2> <b>Pago de Cuotas</b> </h2>
     <table>
         <thead>
         <tr>
-            <th>ID</th>
-            <th>RUN</th>
-            <th>Monto</th>
-            <th>Estado de Pago</th>
-            <th>Fecha de Inicio</th>
-            <th>Fecha de Pago</th>
+            <th>Rut</th>
+            <th>Monto Cuota</th>
+            <th>Estado de Paga</th>
+            <th>Fecha de Paga</th>
             <th>Meses de Atraso</th>
+
         </tr>
         </thead>
         <tbody>
-
-        <tr th:each="cuota : ${Cuotas}">
-            <td th:text="${cuota.idCuota}"></td>
-            <td th:text="${cuota.RUN}"></td>
-            <td th:text="${cuota.montoInicial}"></td>
-            <td th:text="${cuota.estadoPago}"></td>
-            <td th:text="${cuota.fechaInicio}"></td>
-            <td th:text="${cuota.fechaPago}"></td>
-            <td th:text="${cuota.atrasoMeses}"></td>
+        <tr th:each="buscar: ${busqueda}">
+            <td th:text="${buscar.RUN}"></td>
+            <td th:text="${buscar.montoInicial}"></td>
+            <td th:text="${buscar.estadoPago}"></td>
+            <td th:text="${buscar.fechaPago}"></td>
+            <td th:text="${buscar.atrasoMeses}"></td>
         </tr>
         </tbody>
     </table>
+    <form action="/pagar" method="POST">
+        <input type="submit" value="Pagar">
+    </form>
 </div>
 <br>
 <br>

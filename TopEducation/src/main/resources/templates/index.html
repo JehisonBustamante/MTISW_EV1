@@ -79,14 +79,14 @@
         </thead>
         <tbody>
         <tr th:each="estudiante : ${estudiantes}">
-            <td th:text="${estudiante.id_estudiante}"></td>
+            <td th:text="${estudiante.idEstudiante}"></td>
             <td th:text="${estudiante.RUN}"></td>
             <td th:text="${estudiante.apellidos}"></td>
             <td th:text="${estudiante.nombres}"></td>
-            <td th:text="${estudiante.fecha_nacimiento}"></td>
-            <td th:text="${estudiante.nombre_colegio}"></td>
-            <td th:text="${estudiante.tipo_colegio}"></td>
-            <td th:text="${estudiante.anio_egreso}"></td>
+            <td th:text="${estudiante.fechaNacimiento}"></td>
+            <td th:text="${estudiante.nombreColegio}"></td>
+            <td th:text="${estudiante.tipoColegio}"></td>
+            <td th:text="${estudiante.anioEgreso}"></td>
         </tr>
         </tbody>
     </table>
