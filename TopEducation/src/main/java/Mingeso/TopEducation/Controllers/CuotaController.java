@@ -72,11 +72,8 @@ public class CuotaController {
     }
     @PostMapping("/ingreso-pago")
     public String pago(@RequestParam("RUN") String RUN,
-                       HttpSession session,
-                       Model model)
+                       HttpSession session)
     {
-        ArrayList<CuotaEntity> busqueda = cuotaService.buscarCuotas(RUN);
-        model.addAttribute("busqueda", busqueda);
         session.setAttribute("RunPago", RUN);
         return "redirect:/pagar";
     }
@@ -92,12 +89,14 @@ public class CuotaController {
         String RUN = (String) session.getAttribute("RunPago");
         ArrayList<CuotaEntity> busqueda = cuotaService.buscarCuotas(RUN);
         cuotaService.pagarPendientes(busqueda);
+        model.addAttribute("busqueda", busqueda);
+
         if(busqueda.isEmpty())
         {
             model.addAttribute("mensaje", "No hay cuotas por pagar");
             return "main";
         }
         model.addAttribute("mensaje", "Pago realizado con éxito");
-        return "main";
+        return "pagar";
     }
 }

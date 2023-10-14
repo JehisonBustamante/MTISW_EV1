@@ -75,12 +75,12 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="buscar: ${busqueda}">
-            <td th:text="${buscar.RUN}"></td>
-            <td th:text="${buscar.montoInicial}"></td>
-            <td th:text="${buscar.estadoPago}"></td>
-            <td th:text="${buscar.fechaPago}"></td>
-            <td th:text="${buscar.atrasoMeses}"></td>
+        <tr th:each="busqueda:${busqueda}">
+            <td th:text="${busqueda.RUN}"></td>
+            <td th:text="${busqueda.montoInicial}"></td>
+            <td th:text="${busqueda.estadoPago}"></td>
+            <td th:text="${busqueda.fechaPago}"></td>
+            <td th:text="${busqueda.atrasoMeses}"></td>
         </tr>
         </tbody>
     </table>

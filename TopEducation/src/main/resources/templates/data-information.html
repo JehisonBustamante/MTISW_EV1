@@ -2,9 +2,126 @@
 <html lang = "es" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Informacion de Estudiantes.CSV</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Lista de Estudiantes</title>
+    <link rel="shortcut icon" type="image/x-icon" href="/images/TE.ico">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #f2f2f2;
+            position: relative;
+        }
+
+        .imagen-esquina {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100px; /* Ajusta el tamaño de la imagen según tus preferencias */
+        }
+        /* Definición del estilo de la imagen de fondo */
+        body {
+            background-image: url('/images/TE_bg.jpeg'); /* Ruta relativa a la carpeta 'static' */
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+        .contenido {
+            background-color: rgba(255, 255, 255, 0.7);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        tr:hover {
+            background-color: #ddd;
+        }
+        .header .btn button{
+            margin-left: 20px;
+            font-weight: 700;
+            color: #1b3039;
+            padding: 9px 25px;
+            background: #eceff1;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease 0s;
+        }
+        .header .btn button:hover{
+            background-color: #e2f1f8;
+            color: #ffbc0e;
+            transform: scale(1.1);
+        }
+        .header .btn-2 button {
+            margin-left: 20px;
+            font-weight: 700;
+            color: #1b3039;
+            padding: 9px 25px;
+            background: #eceff1;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease 0s;
+        }
+        .header .btn-2 button:hover{
+            background-color: #e2f1f8;
+            color: #ffbc0e;
+            transform: scale(1.1);
+        }
+    </style>
 </head>
 <body>
+<header>
+    <h1>TopEducation</h1>
+    <a class="btn" href="/"><button>Volver al menú principal</button></a>
+    <a class="btn-2" href="/data-upload"><button>Cargar un nuevo .CSV</button></a>
+</header>
+<br>
+<img src="/images/TE.png" alt="Logo TopEducation" class="imagen-esquina">
+<div class="contenido">
+    <h2> <b>Información de Examenes.CSV</b> </h2>
+    <table>
+        <thead>
+        <tr>
+            <th>Rut del Estudiante</th>
+            <th>Puntaje</th>
+            <th>Fecha de Prueba Rendida</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="dato:${datos}">
+            <td th:text="${dato.RUN}"></td>
+            <td th:text="${dato.puntaje}"></td>
+            <td th:text="${dato.fechaPrueba}"></td>
+        </tr>
+        </tbody>
+    </table>
 
+</div>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 </body>
 </html>

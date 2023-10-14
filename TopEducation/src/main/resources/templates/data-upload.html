@@ -93,29 +93,21 @@
 <header>
     <h1>TopEducation</h1>
     <a class="btn" href="/"><button>Volver al menú principal</button></a>
-    <a class="btn-2" href="/data-upload"><button>Cargar un nuevo .CSV</button></a>
+    <a class="btn-2" href="/data-information"><button>Visualizar CSV guardado</button></a>
 </header>
 <br>
 <img src="/images/TE.png" alt="Logo TopEducation" class="imagen-esquina">
 <div class="contenido">
-    <h2> <b>Información de Examenes.CSV</b> </h2>
-    <table>
-        <thead>
-        <tr>
-            <th>Rut del Estudiante</th>
-            <th>Puntaje</th>
-            <th>Fecha de Prueba Rendida</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="dato:${datos}">
-            <td th:text="${dato.RUN}"></td>
-            <td th:text="${dato.puntaje}"></td>
-            <td th:text="${dato.fechaPrueba}"></td>
-        </tr>
-        </tbody>
-    </table>
-
+    <h2> <b>Carga de datos en CSV</b> </h2>
+    <form th:action="@{/data-upload}" method="POST" enctype="multipart/form-data">
+        <br>
+        <input type="file" class="form-control" name="file" accept = ".csv">
+        <br>
+        <input class = "btn btn-primary"
+               type="submit" value="Cargar el archivo a la Base de Datos">
+    </form>
+    <br>
+    <u><b> <h2 th:text="${mensaje}"></h2></b></u>
 </div>
 <br>
 <br>

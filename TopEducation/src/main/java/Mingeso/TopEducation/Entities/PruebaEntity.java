@@ -19,5 +19,4 @@ public class PruebaEntity {
     private String RUN;
     private Integer puntaje;
     private LocalDate fechaPrueba;
-    private LocalDate fechaResultado;
 }
