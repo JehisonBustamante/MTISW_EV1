@@ -1,0 +1,15 @@
+Mingeso\TopEducation\Entities\PruebaEntity.class
+Mingeso\TopEducation\Repositories\PruebaRepository.class
+Mingeso\TopEducation\Controllers\HomeController.class
+Mingeso\TopEducation\Entities\PromedioEntity.class
+Mingeso\TopEducation\Services\PruebaService.class
+Mingeso\TopEducation\Repositories\CuotaRepository.class
+Mingeso\TopEducation\Controllers\CuotaController.class
+Mingeso\TopEducation\Repositories\EstudianteRepository.class
+Mingeso\TopEducation\Controllers\PruebaController.class
+Mingeso\TopEducation\TopEducationApplication.class
+Mingeso\TopEducation\Entities\CuotaEntity.class
+Mingeso\TopEducation\Services\EstudianteService.class
+Mingeso\TopEducation\Controllers\EstudianteController.class
+Mingeso\TopEducation\Services\CuotaService.class
+Mingeso\TopEducation\Entities\EstudianteEntity.class
