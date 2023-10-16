@@ -1,6 +1,8 @@
 package Mingeso.TopEducation.Services;
 
+import Mingeso.TopEducation.Entities.EstudianteEntity;
 import Mingeso.TopEducation.Entities.PruebaEntity;
+import Mingeso.TopEducation.Repositories.EstudianteRepository;
 import Mingeso.TopEducation.Repositories.PruebaRepository;
 import lombok.Generated;
 import org.slf4j.Logger;
@@ -18,6 +20,7 @@ import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class PruebaService {
@@ -37,7 +40,7 @@ public class PruebaService {
     public void guardarDatosBD(String RUN, String puntaje, String fechaPrueba){
         PruebaEntity newPep = new PruebaEntity();
         Integer puntos = Integer.parseInt(puntaje);
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         LocalDate fechaPep = LocalDate.parse(fechaPrueba, formatter);
         newPep.setFechaPrueba(fechaPep);
         newPep.setRUN(RUN);
@@ -101,4 +104,5 @@ public class PruebaService {
             return "No se pudo guardar el archivo";
         }
     }
+
 }

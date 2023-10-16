@@ -14,6 +14,19 @@ public class CuotaService {
     CuotaRepository cuotaRepository;
 
 
+    /**
+     * Busca y devuelve todas las cuotas registradas en la base de datos.
+     */
+    public ArrayList<CuotaEntity> obtenerTodo()
+    {
+        return  cuotaRepository.findAll();
+    }
+
+    /**
+     * Busca y devuelve una cuota en función de el rut asociado.
+     *
+     * @param RUN             RUT del estudiante.
+     */
     public ArrayList<CuotaEntity> obtenerCuotas(String RUN)
     {
     ArrayList<CuotaEntity> cuotas = cuotaRepository.findAllByRUN(RUN);
@@ -21,8 +34,24 @@ public class CuotaService {
         return cuotas;
     }
 
-    public void guardarCuota(String RUN, Integer montoInicial, String estadoPago, LocalDate fechaInicio, LocalDate fechaPago, Integer atrasoMeses, Integer error) {
+    /**
+     * Guarda los detalles de una cuota en la base de datos.
+     *
+     * @param RUN          RUT del estudiante asociado a la cuota.
+     * @param montoInicial Monto inicial de la cuota.
+     * @param estadoPago   Estado de pago de la cuota (Pagado, No Pagado).
+     * @param fechaInicio  Fecha de inicio de la cuota en formato LocalDate.
+     * @param fechaPago    Fecha límite para el pago de la cuota en formato LocalDate.
+     * @param atrasoMeses  Número de meses de atraso en el pago de la cuota.
+     * @param error        Tipo de error asociado a la cuota (si lo hay, 0 si es que no hay).
+     */
+    public void guardarCuota(String RUN, Integer montoInicial, String estadoPago,
+                             LocalDate fechaInicio, LocalDate fechaPago,
+                             Integer atrasoMeses, Integer error) {
+        // Crea una nueva instancia de CuotaEntity.
         CuotaEntity cuota = new CuotaEntity();
+
+        // Asigna los valores a las propiedades de la cuota.
         cuota.setRUN(RUN);
         cuota.setMontoInicial(montoInicial);
         cuota.setEstadoPago(estadoPago);
@@ -30,67 +59,109 @@ public class CuotaService {
         cuota.setFechaPago(fechaPago);
         cuota.setAtrasoMeses(atrasoMeses);
         cuota.setTipoError(error);
+
+        // Guarda la cuota en la base de datos.
         cuotaRepository.save(cuota);
     }
 
+    /**
+     * Determina el número máximo de cuotas permitidas según el tipo de colegio del estudiante.
+     *
+     * @param tipoColegio Tipo de colegio del estudiante (Municipal, Subvencionado, Privado).
+     * @return Número máximo de cuotas permitidas para el tipo de colegio especificado.
+     */
     public Integer cuotasMaximas(String tipoColegio) {
         switch (tipoColegio) {
-            case "Municipal" -> {
+            case "Municipal":
                 return 10;
-            }
-            case "Subvencionado" -> {
+            case "Subvencionado":
                 return 7;
-            }
-            case "Privado" -> {
+            case "Privado":
                 return 4;
-            }
+            default:
+                return 10; // Valor predeterminado si el tipo de colegio no es reconocido.
         }
-        return 10;
     }
 
-    public void verificarAtrasos(ArrayList<CuotaEntity> cuotas)
-    {
+
+    /**
+     * Verifica y asigna la cantidad de meses de atraso para cada cuota en función de la fecha actual.
+     *
+     * @param cuotas Lista de cuotas que se deben verificar.
+     */
+    public void verificarAtrasos(ArrayList<CuotaEntity> cuotas) {
+        LocalDate hoy = LocalDate.now();
+        // Itera a través de las cuotas para verificar los atrasos
         for (CuotaEntity cuota : cuotas) {
-            LocalDate hoy = LocalDate.now();
             int atraso = 0;
-            if(hoy.getMonthValue() >= cuota.getFechaPago().getMonthValue())
-            {
-                for(int j= hoy.getMonthValue(); j>=cuota.getFechaPago().getMonthValue(); j--)
-                {
+            // Comprueba si el mes de pago ya ha pasado o es el mes actual
+            if (hoy.getMonthValue() >= cuota.getFechaPago().getMonthValue()) {
+                for (int j = cuota.getFechaPago().getMonthValue(); j <= hoy.getMonthValue(); j++) {
+                    // Si es el mes de pago y el día actual es posterior al día de pago, se cuenta como atraso
                     if (j == cuota.getFechaPago().getMonthValue() && hoy.getDayOfMonth() > 10) {
-                        atraso = atraso + 1;
+                        atraso++;
                     }
-                    else if(j>cuota.getFechaPago().getMonthValue())
-                    {
-                        atraso = atraso + 1;
+                    // Si el mes actual es posterior al mes de pago, se cuenta como atraso
+                    else if (j > cuota.getFechaPago().getMonthValue()) {
+                        atraso++;
                     }
                 }
             }
-            Integer atrasadoFinal = atraso;
-            cuota.setAtrasoMeses(atrasadoFinal);
+            // Asigna el número de meses de atraso a la cuota
+            cuota.setAtrasoMeses(atraso);
         }
-
     }
 
 
-    public LocalDate fechaPago(LocalDate cuota1)
-    {
-        LocalDate fechaPago = LocalDate.of(cuota1.getYear(), cuota1.getMonth(), cuota1.getDayOfMonth());
-        if(fechaPago.getMonthValue() == 12)
-        {
-            fechaPago = LocalDate.of(fechaPago.getYear() + 1, 1, 5);
+    /**
+     * Calcula el monto del arancel para un pago al contado.
+     *
+     * @param arancel Monto total del arancel.
+     * @return Monto del arancel dividido por 2.
+     */
+    public Integer alContado(Integer arancel) {
+        return arancel / 2;
+    }
+
+    /**
+     * Calcula la fecha del próximo pago basándose en la fecha de la cuota actual.
+     *
+     * @param cuota1 Fecha de la cuota actual.
+     * @return Fecha del próximo pago (mes siguiente, día 5).
+     */
+    public LocalDate fechaPago(LocalDate cuota1) {
+        // Obtiene el año, mes y día de la cuota actual.
+        int year = cuota1.getYear();
+        int month = cuota1.getMonthValue();
+        int day = cuota1.getDayOfMonth();
+
+        // Si la cuota está en diciembre, el próximo pago será en enero del siguiente año.
+        // De lo contrario, el próximo pago será en el siguiente mes del mismo año.
+        if (month == 12) {
+            year++;  // Siguiente año.
+            month = 1;  // Enero.
+        } else {
+            month++;  // Siguiente mes.
         }
-        else {
-            fechaPago = LocalDate.of(fechaPago.getYear(), fechaPago.getMonthValue() + 1, 5);
-        }
+
+        // La fecha del próximo pago será el día 5 del mes calculado.
+        LocalDate fechaPago = LocalDate.of(year, month, 5);
         return fechaPago;
     }
+
 
     public void generarCuota(String RUN, String tipoColegio, Integer anioEgreso, Integer cantCuotas)
     {
         Integer arancel = 1500000;
-        arancel = descuentoColegio(arancel, tipoColegio);
-        arancel = descuentoEgreso(arancel, anioEgreso);
+        if(cantCuotas==1)
+        {
+            arancel = alContado(arancel);
+        }
+        else if(cantCuotas>1)
+        {
+            arancel = descuentoColegio(arancel, tipoColegio);
+            arancel = descuentoEgreso(arancel, anioEgreso);
+        }
         String estado = "No Pagado";
         Integer atrasoMeses = 0;
         LocalDate hoy = LocalDate.now();
@@ -98,6 +169,12 @@ public class CuotaService {
         for(int i=0; i<cantCuotas; i++)
         {
             LocalDate pago = fechaPago(hoy);
+            if(cantCuotas==1)
+            {
+                pago = hoy;
+                pagos.add(pago);
+                break;
+            }
             hoy = pago;
             pagos.add(pago);
         }
@@ -185,4 +262,5 @@ public class CuotaService {
             cuotaRepository.save(cuota);
         }
     }
+
 }

@@ -99,4 +99,5 @@ public class CuotaController {
         model.addAttribute("mensaje", "Pago realizado con éxito");
         return "pagar";
     }
+    
 }

@@ -2,6 +2,7 @@ package Mingeso.TopEducation.Controllers;
 
 import Mingeso.TopEducation.Entities.PruebaEntity;
 import Mingeso.TopEducation.Services.PruebaService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,6 +25,7 @@ public class PruebaController {
     {
         return "data-upload";
     }
+
     @PostMapping("/data-upload")
     public String upload(@RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes) {
         pruebaService.guardar(file);
@@ -33,9 +35,11 @@ public class PruebaController {
     }
 
     @GetMapping("/data-information")
-    public String listar(Model model) {
+    public String listar(Model model,
+                         HttpSession session) {
         ArrayList<PruebaEntity> datos = pruebaService.obtenerDatos();
         model.addAttribute("datos", datos);
+        session.setAttribute("datos", datos);
         return "data-information";
     }
 

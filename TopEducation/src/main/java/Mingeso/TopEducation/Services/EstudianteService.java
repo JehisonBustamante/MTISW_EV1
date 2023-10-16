@@ -10,17 +10,45 @@ import java.util.ArrayList;
 
 @Service
 public class EstudianteService {
+
     @Autowired
     EstudianteRepository estudianteRepository;
 
-    public ArrayList<EstudianteEntity> obtenerEstudiantes()
-    {
+    /**
+     * Busca y devuelve a todos los estudiantes guardados en la base de datos.
+     */
+    public ArrayList<EstudianteEntity> obtenerEstudiantes() {
         return (ArrayList<EstudianteEntity>) estudianteRepository.findAll();
     }
 
+    /**
+     * Busca y devuelve un estudiante en función de su rut.
+     *
+     * @param RUN             RUT del estudiante.
+     */
+    public EstudianteEntity obtenerPorRUN(String RUN)
+    {
+        return estudianteRepository.findByRUN(RUN);
+    }
 
-    public void guardarEstudiante(String RUN, String apellidos, String nombres, LocalDate fechaNacimiento, String tipoColegio, String nombreColegio, Integer anioEgreso) {
+    /**
+     * Guarda un nuevo estudiante en la base de datos.
+     *
+     * @param RUN             RUT del estudiante.
+     * @param apellidos       Apellidos del estudiante.
+     * @param nombres         Nombres del estudiante.
+     * @param fechaNacimiento Fecha de nacimiento del estudiante en formato LocalDate.
+     * @param tipoColegio     Tipo de colegio al que asiste el estudiante (Municipal, Subvencionado o Privado).
+     * @param nombreColegio   Nombre del colegio al que asiste el estudiante.
+     * @param anioEgreso      Año en el que el estudiante egresó de la escuela.
+     */
+    public void guardarEstudiante(String RUN, String apellidos, String nombres,
+                                  LocalDate fechaNacimiento, String tipoColegio,
+                                  String nombreColegio, Integer anioEgreso) {
+        // Crea una nueva instancia de EstudianteEntity.
         EstudianteEntity estudiante = new EstudianteEntity();
+
+        // Asigna los valores a las propiedades del estudiante.
         estudiante.setRUN(RUN);
         estudiante.setApellidos(apellidos);
         estudiante.setNombres(nombres);
@@ -28,20 +56,8 @@ public class EstudianteService {
         estudiante.setTipoColegio(tipoColegio);
         estudiante.setNombreColegio(nombreColegio);
         estudiante.setAnioEgreso(anioEgreso);
+
+        // Guarda el estudiante en la base de datos.
         estudianteRepository.save(estudiante);
     }
-
-    public int VerificarEstudiante(String RUN) {
-        if (estudianteRepository.findByRUN(RUN) == null) {
-            return 0;
-        } else {
-            return 1;
-        }
-    }
-
-    public void eliminarEstudiante(EstudianteEntity estudiante)
-    {
-        estudianteRepository.delete(estudiante);
-    }
-
 }
