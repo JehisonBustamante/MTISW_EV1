@@ -1,0 +1,45 @@
+version: "3.8"
+services:
+  nginx:
+    image: nginx:latest
+    container_name: nginx-proxy
+    restart: always
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/conf.d:/etc/nginx/conf.d
+    depends_on:
+      - topeducation1
+      - topeducation2
+  db:
+    container_name: tedatabase
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD : 1234
+      MYSQL_DATABASE: topeducation
+    ports:
+      - "3307:3306"
+    volumes:
+      - ./data/db:/var/lib/mysql
+  topeducation1:
+    container_name: topeducation1
+    image: jehisonbustamante/topeducation:latest
+    ports:
+      - "6081:6080"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://db:3306/TopEducation
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=1234
+    depends_on:
+      - db
+  topeducation2:
+    container_name: topeducation2
+    image: jehisonbustamante/topeducation:latest
+    ports:
+      - "6082:6080"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://db:3306/TopEducation
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=1234
+    depends_on:
+      - db
